@@ -12,7 +12,7 @@ public class CrimeLab {
 
     private List<Crime> mCrimes;
 
-    public static CrimeLab getCrimeLab(Context context) {
+    public static CrimeLab get(Context context) {
         if (sCrimeLab == null) {
             sCrimeLab = new CrimeLab(context);
         }
@@ -25,6 +25,7 @@ public class CrimeLab {
             Crime crime = new Crime();
             crime.setTitle("Crime #" + i);
             crime.setSolved(i % 2 == 0);
+            mCrimes.add(crime);
         }
     }
 
