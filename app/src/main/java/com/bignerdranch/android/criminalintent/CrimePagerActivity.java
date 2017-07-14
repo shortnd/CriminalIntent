@@ -34,6 +34,9 @@ public class CrimePagerActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.crime_view_pager);
 
+        UUID crimeId = (UUID) getIntent()
+                .getSerializableExtra(EXTRA_CRIME_ID);
+
         mCrimes = CrimeLab.get(this).getCrimes();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentPagerAdapter(fragmentManager) {
@@ -48,6 +51,13 @@ public class CrimePagerActivity extends AppCompatActivity {
                 return mCrimes.size();
             }
         });
+
+       for (int i = 0; i < mCrimes.size(); i++) {
+           if (mCrimes.get(i).getId().equals(crimeId)) {
+               mViewPager.setCurrentItem(i);
+               break;
+           }
+       }
     }
 }
 
