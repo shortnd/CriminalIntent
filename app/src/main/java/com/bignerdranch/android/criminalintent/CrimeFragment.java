@@ -24,10 +24,10 @@ public class CrimeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
-
+    // Setting fragment as target
+    private static final int REQUEST_DATE = 0;
     // Instance of Crime
     private Crime mCrime;
-
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
@@ -84,6 +84,8 @@ public class CrimeFragment extends Fragment {
                 // Call to new DatePickerFragment
                 DatePickerFragment dialog = DatePickerFragment
                         .newInstance(mCrime.getDate());
+                // Setting the current fragment as the target
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
                 dialog.show(manager, DIALOG_DATE);
             }
         });
