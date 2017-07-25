@@ -8,5 +8,8 @@
     <string name="new_crime">New Crime</string>
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
-    <string name="subtitle_format">%1$d crimes</string>
+    <plurals name="subtitle_plural">
+        <string name="one">%1$d crime</string>
+        <string name="other">%1$d crimes</string>
+    </plurals>
 </resources>
