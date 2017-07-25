@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/** Date Picker fragment when choosing when the crime was committed */
 
 public class DatePickerFragment extends DialogFragment {
 
