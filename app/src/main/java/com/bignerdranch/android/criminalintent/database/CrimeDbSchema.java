@@ -1,8 +1,5 @@
 package com.bignerdranch.android.criminalintent.database;
 
-/**
- * Created by Shortnd on 7/26/17.
- */
 
 public class CrimeDbSchema {
     public static final class CrimeTable {
