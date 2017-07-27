@@ -3,12 +3,14 @@ package com.bignerdranch.android.criminalintent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -118,13 +120,13 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        final Intent pickContect = new Intent(Intent.ACTION_PICK,
+        final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
         mSuspectButton = v.findViewById(R.id.crime_suspect);
         mSuspectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(pickContect, REQUEST_CONTACT);
+                startActivityForResult(pickContact, REQUEST_CONTACT);
             }
         });
 
@@ -136,15 +138,20 @@ public class CrimeFragment extends Fragment {
         mReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
-                i.putExtra(Intent.EXTRA_SUBJECT,
-                        getString(R.string.crime_report_suspect));
-                i.createChooser(i, getString(R.string.send_report));
-                startActivity(i);
+                ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder
+                        .from(getActivity());
+                builder.setType("text/plain");
+                builder.setText(getCrimeReport());
+                builder.setSubject(mCrime.getTitle());
+                builder.startChooser();
             }
         });
+
+        PackageManager packageManager = getActivity().getPackageManager();
+        if (packageManager.resolveActivity(pickContact,
+                packageManager.MATCH_DEFAULT_ONLY) == null) {
+            mSuspectButton.setEnabled(false);
+        }
 
         return v;
     }
@@ -215,7 +222,7 @@ public class CrimeFragment extends Fragment {
     }
 
     private String getCrimeReport() {
-        String solvedString = null;
+        String solvedString;
         if (mCrime.isSolved()) {
             solvedString = getString(R.string.crime_report_solved);
         } else {
