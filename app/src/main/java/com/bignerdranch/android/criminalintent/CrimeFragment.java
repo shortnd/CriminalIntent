@@ -47,6 +47,7 @@ public class CrimeFragment extends Fragment {
 
     private Button mSuspectButton;
     private Button mReportButton;
+    private Button mCallSuspectButton;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -152,6 +153,14 @@ public class CrimeFragment extends Fragment {
                 packageManager.MATCH_DEFAULT_ONLY) == null) {
             mSuspectButton.setEnabled(false);
         }
+
+        mCallSuspectButton = v.findViewById(R.id.call_suspect);
+        mCallSuspectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: make implict intent to call the contact/suspect that they selected
+            }
+        });
 
         return v;
     }
