@@ -195,6 +195,16 @@ public class CrimeFragment extends Fragment {
         });
 
         mPhotoView = v.findViewById(R.id.crime_photo);
+
+        mPhotoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent()
+                FragmentManager fm = getFragmentManager();
+                CrimePictureDetailFragment dialogFragment = new CrimePictureDetailFragment();
+                dialogFragment.show(fm, "Sample Fragment");
+            }
+        });
         updatePhotoView();
 
         return v;
